@@ -193,7 +193,8 @@ def main():
     data_str = datetime.datetime.now(tz = datetime.timezone(datetime.timedelta(hours = 8))).date().isoformat()
     for i, item in enumerate(config['users']):
         success, msg = hit_card(item['username'], item['password'])
-        record[item['username']] = {'last_time': '', 'msg': '', 'display_name': item['display_name'], 'ding_talk_id': item['ding_talk_id']}
+        record[item['username']] = {'last_time': None, 'msg': '', 'display_name': item['display_name'],
+                                    'ding_talk_id': item['ding_talk_id']}
         record[item['username']]['msg'] = msg
         if success:
             record[item['username']]['last_time'] = data_str
@@ -203,7 +204,8 @@ def main():
             time.sleep(sleep_time)
 
     # dump record
-    if datetime.datetime.now(tz = datetime.timezone(datetime.timedelta(hours = 8))).time().hour >= config['notification_time']:
+    if datetime.datetime.now(tz = datetime.timezone(datetime.timedelta(hours = 8))).time().hour >= config['notification_time'] and any(
+            [v['last_time'] is None for v in record.values()]):
         notification(record, config)
 
 
