@@ -204,9 +204,7 @@ def main():
             time.sleep(sleep_time)
 
     # dump record
-    if datetime.datetime.now(tz = datetime.timezone(datetime.timedelta(hours = 8))).time().hour >= config['notification_time'] and any(
-            [v['last_time'] is None for v in record.values()]):
-        notification(record, config)
+    notification(record, config)
 
 
 if __name__ == "__main__":
