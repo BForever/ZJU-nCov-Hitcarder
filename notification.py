@@ -22,9 +22,9 @@ def notification(record, config):
     text = '[健康打卡链接](https://healthreport.zju.edu.cn/ncov/wap/default/index)\n'
     at_dingtalk_ids = []
     for rec in record.values():
-        if rec['last_time'] != data_str:
-            at_dingtalk_ids.append(rec['ding_talk_id'])
-            text += '- @' + rec['ding_talk_id'] + '自动打卡失败，报错信息：' + rec['msg'] + '\n'
+#         if rec['last_time'] != data_str:
+        at_dingtalk_ids.append(rec['ding_talk_id'])
+        text += '- @' + rec['ding_talk_id'] + '自动打卡失败，报错信息：' + rec['msg'] + '\n'
     if not at_dingtalk_ids:
         return
     for rec in record.values():
